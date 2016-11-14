@@ -1,0 +1,54 @@
+\\ctovm1543.dev.sabre.com\TransferFiles 
+We'll look at PCC/PCCCode= 'B7ZB' 
+For this we'll find out how many shops/day (day, count of records)
+Were there any duplicate shops? 
+within 2016 
+what hotel properties did they shop for?  
+what stay dates? 
+frequency of shops?  
+distribution along the day  
+hotelshoprequest 
+hotelhodsrrequest(sessionid, transactionid, propertycode)
+
+==============================================================================================================================================================================================================================================================
+
+TableStructure:
+
+hotelhodsrrequest
+
+0)requestts (string)
+1)sessionid (string)
+2)transactionid (string)
+3)clickthroughind (string)
+4)pcccode (string)
+5)hotelchaincode (string)
+6)propertycode (int)
+7)requesttext (string)
+8)posindicator (string)
+9)year (string)
+10)month (string)
+11)day (string)
+
+=================================================================================================================================================================================================================================================================
+
+Complilation help:(to avoid invalid signature error)
+zip -d hotelhodrequestparsing_sbt.jar 'META-INF/.SF' 'META-INF/.RSA' 'META-INF/*SF'
+
+=================================================================================================================================================================================================================================================================
+
+running:
+spark-submit --master yarn --num-executors 40 --driver-memory 20G --executor-cores 20 --executor-memory 45G hotelhodrequestparsing_sbt.jar
+
+=================================================================================================================================================================================================================================================================
+
+Unix_Command_help:
+cat Output/sg952655/shopperdaycount/* >> mergedshopperdaycount
+pwd
+cat mergedshopperdaycount | more
+
+=================================================================================================================================================================================================================================================================
+
+Hadoop Commands:
+hadoop fs -ls /user/hive/warehouse/ehotel.db/hotelhodsrrequest/year=2016/month=*
+hadoop fs -copyToLocal /hdfs/source/path /localfs/destination/path
+hadoop fs -copyToLocal Totalshopperdaycount/ ~/
